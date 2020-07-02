@@ -6,5 +6,15 @@
 */
 {
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "./projects/farris-dict/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/farris-dict/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/farris-dict/e2e/tsconfig.json"
+    }
+]
 }
