@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { DictComponent } from './dict.component';
-
-const routes: Routes = [{ path: '', component: DictComponent }];
-
+import { RootComponent } from './components/root/root.component';
+const routes: Routes = [{ path: '', component: RootComponent }];
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
-export class DictRoutingModule { }
+export class DictRoutingModule {}
