@@ -1,14 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { ResponseToolbarClickEvent } from '@farris/ui-response-toolbar';
+import { DictRepository } from '../../models/dict.repository';
+import { RootViewModel } from '../../viewmodels/root.viewmodel';
+import { RootBindingData } from '../../viewmodels/bindingdata/root.bindingdata';
 
-import { FARRIS_DEVKIT_FRAME_PROVIDERS } from '@farris/devkit';
+import {
+    FARRIS_DEVKIT_FRAME_PROVIDERS,
+    FrameComponent,
+    FRAME_ID,
+    Repository,
+    ViewModel,
+    BindingData,
+} from '@farris/devkit';
 @Component({
     selector: 'app-root',
     templateUrl: './root.component.html',
     styleUrls: ['./root.component.css'],
-    providers: [FARRIS_DEVKIT_FRAME_PROVIDERS],
+    providers: [
+        FARRIS_DEVKIT_FRAME_PROVIDERS,
+        { provide: FRAME_ID, useValue: 'root' },
+        { provide: Repository, useClass: DictRepository },
+        { provide: ViewModel, useClass: RootViewModel },
+        { provide: BindingData, useClass: RootBindingData },
+    ],
 })
-export class RootComponent implements OnInit {
+export class RootComponent extends FrameComponent implements OnInit {
     toolbarData = [
         {
             id: 'toolbar-add',
@@ -37,7 +53,9 @@ export class RootComponent implements OnInit {
             disabled: false,
         },
     ];
-    constructor() {}
+    constructor(injector: Injector) {
+        super(injector);
+    }
     ngOnInit() {}
     toolbarClickHandler(event: ResponseToolbarClickEvent) {
         alert('you click ' + event.id + '!');

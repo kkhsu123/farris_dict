@@ -1,13 +1,26 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, Injector } from '@angular/core';
 
-import { FARRIS_DEVKIT_FRAME_PROVIDERS } from '@farris/devkit';
+import {
+    FrameComponent,
+    FARRIS_DEVKIT_FRAME_PROVIDERS,
+    FRAME_ID,
+    ViewModel,
+    BindingData,
+} from '@farris/devkit';
+import { CardViewModel } from '../../viewmodels/card.viewmodel';
+import { CardBindingData } from '../../viewmodels/bindingdata/card.bindingdata';
 @Component({
     selector: 'app-card',
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.css'],
-    providers: [FARRIS_DEVKIT_FRAME_PROVIDERS],
+    providers: [
+        FARRIS_DEVKIT_FRAME_PROVIDERS,
+        { provide: FRAME_ID, useValue: 'card' },
+        { provide: ViewModel, useClass: CardViewModel },
+        { provide: BindingData, useClass: CardBindingData },
+    ],
 })
-export class CardComponent implements OnInit {
+export class CardComponent extends FrameComponent implements OnInit {
     @HostBinding('class.f-struct-wrapper')
     cls = true;
     data = {
@@ -15,6 +28,10 @@ export class CardComponent implements OnInit {
         code: '1',
         name: 'A',
     };
-    constructor() {}
+    constructor(
+        injector: Injector
+    ) {
+        super(injector);
+    }
     ngOnInit() {}
 }

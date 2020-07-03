@@ -1,15 +1,28 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, Injector } from '@angular/core';
 import { DataColumn } from '@farris/ui-datagrid';
-
-import { FARRIS_DEVKIT_FRAME_PROVIDERS } from '@farris/devkit';
+import {
+    FrameComponent,
+    FARRIS_DEVKIT_FRAME_PROVIDERS,
+    FRAME_ID,
+    ViewModel,
+    BindingData,
+    UIState,
+} from '@farris/devkit';
+import { ListViewModel } from '../../viewmodels/list.viewmodel';
+import { ListBindingData } from '../../viewmodels/bindingdata/list.bindingdata';
 
 @Component({
     selector: 'app-list',
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.css'],
-    providers: [FARRIS_DEVKIT_FRAME_PROVIDERS],
+    providers: [
+        FARRIS_DEVKIT_FRAME_PROVIDERS,
+        { provide: FRAME_ID, useValue: 'list' },
+        { provide: ViewModel, useClass: ListViewModel },
+        { provide: BindingData, useClass: ListBindingData },
+    ],
 })
-export class ListComponent implements OnInit {
+export class ListComponent extends FrameComponent implements OnInit {
     @HostBinding('class.f-struct-wrapper')
     @HostBinding('class.f-utils-fill-flex-column')
     cls = true;
@@ -28,6 +41,10 @@ export class ListComponent implements OnInit {
         { id: '007', name: 'G', code: '7' },
         { id: '008', name: 'H', code: '8' },
     ];
-    constructor() {}
+    constructor(
+        injector: Injector
+    ) {
+        super(injector);
+    }
     ngOnInit() {}
 }
