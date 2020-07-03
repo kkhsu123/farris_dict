@@ -11,7 +11,17 @@ import {
     Repository,
     ViewModel,
     BindingData,
+    COMMAND_HANDLERS_TOKEN,
 } from '@farris/devkit';
+
+import { LoadHandler } from '../../viewmodels/handlers/load.handler';
+import { AddHandler } from '../../viewmodels/handlers/add.handler';
+import { EditHandler } from '../../viewmodels/handlers/edit.handler';
+import { SaveHandler } from '../../viewmodels/handlers/save.handler';
+import { CancelHandler } from '../../viewmodels/handlers/cancel.handler';
+import { RemoveHandler } from '../../viewmodels/handlers/remove.handler';
+import { CloseHandler } from '../../viewmodels/handlers/close.handler';
+import { DictCommandService } from '../../viewmodels/services/dict.command.service';
 @Component({
     selector: 'app-root',
     templateUrl: './root.component.html',
@@ -22,9 +32,30 @@ import {
         { provide: Repository, useClass: DictRepository },
         { provide: ViewModel, useClass: RootViewModel },
         { provide: BindingData, useClass: RootBindingData },
+        { provide: COMMAND_HANDLERS_TOKEN, useClass: LoadHandler, multi: true },
+        { provide: COMMAND_HANDLERS_TOKEN, useClass: AddHandler, multi: true },
+        { provide: COMMAND_HANDLERS_TOKEN, useClass: EditHandler, multi: true },
+        { provide: COMMAND_HANDLERS_TOKEN, useClass: SaveHandler, multi: true },
+        {
+            provide: COMMAND_HANDLERS_TOKEN,
+            useClass: CancelHandler,
+            multi: true,
+        },
+        {
+            provide: COMMAND_HANDLERS_TOKEN,
+            useClass: RemoveHandler,
+            multi: true,
+        },
+        {
+            provide: COMMAND_HANDLERS_TOKEN,
+            useClass: CloseHandler,
+            multi: true,
+        },
+        DictCommandService,
     ],
 })
 export class RootComponent extends FrameComponent implements OnInit {
+    viewModel: RootViewModel;
     toolbarData = [
         {
             id: 'toolbar-add',
@@ -56,8 +87,29 @@ export class RootComponent extends FrameComponent implements OnInit {
     constructor(injector: Injector) {
         super(injector);
     }
-    ngOnInit() {}
+    ngOnInit() {
+        this.viewModel.load();
+    }
     toolbarClickHandler(event: ResponseToolbarClickEvent) {
-        alert('you click ' + event.id + '!');
+        switch (event.id) {
+            case 'toolbar-add':
+                this.viewModel.add();
+                break;
+            case 'toolbar-edit':
+                this.viewModel.edit();
+                break;
+            case 'toolbar-save':
+                this.viewModel.save();
+                break;
+            case 'toolbar-cancel':
+                this.viewModel.cancel();
+                break;
+            case 'toolbar-delete':
+                this.viewModel.remove();
+                break;
+            case 'toolbar-close':
+                this.viewModel.close();
+                break;
+        }
     }
 }
