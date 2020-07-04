@@ -22,6 +22,8 @@ import { CancelHandler } from '../../viewmodels/handlers/cancel.handler';
 import { RemoveHandler } from '../../viewmodels/handlers/remove.handler';
 import { CloseHandler } from '../../viewmodels/handlers/close.handler';
 import { DictCommandService } from '../../viewmodels/services/dict.command.service';
+
+import { DictMockDataService } from '../../models/services/dict-mock.data.service';
 @Component({
     selector: 'app-root',
     templateUrl: './root.component.html',
@@ -52,6 +54,7 @@ import { DictCommandService } from '../../viewmodels/services/dict.command.servi
             multi: true,
         },
         DictCommandService,
+        DictMockDataService
     ],
 })
 export class RootComponent extends FrameComponent implements OnInit {
