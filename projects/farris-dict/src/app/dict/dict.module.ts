@@ -12,6 +12,8 @@ import { ListComponent } from './components/list/list.component';
 import { CardComponent } from './components/card/card.component';
 
 import { FARRIS_DEVKIT_APP_PROVIDERS } from '@farris/devkit';
+// import { KendoBindingModule } from '@farris/kendo-binding';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
     declarations: [RootComponent, ListComponent, CardComponent],
     imports: [
@@ -23,6 +25,8 @@ import { FARRIS_DEVKIT_APP_PROVIDERS } from '@farris/devkit';
         AngularDraggableModule,
         FarrisSectionModule,
         DatagridModule,
+        // KendoBindingModule,
+        ReactiveFormsModule
     ],
     providers: [FARRIS_DEVKIT_APP_PROVIDERS],
 })

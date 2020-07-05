@@ -10,6 +10,7 @@ import {
 } from '@farris/devkit';
 import { ListViewModel } from '../../viewmodels/list.viewmodel';
 import { ListBindingData } from '../../viewmodels/bindingdata/list.bindingdata';
+import { ListUIState } from '../../viewmodels/uistate/list.uistate';
 
 @Component({
     selector: 'app-list',
@@ -20,6 +21,7 @@ import { ListBindingData } from '../../viewmodels/bindingdata/list.bindingdata';
         { provide: FRAME_ID, useValue: 'list' },
         { provide: ViewModel, useClass: ListViewModel },
         { provide: BindingData, useClass: ListBindingData },
+        { provide: UIState, useClass: ListUIState}
     ],
 })
 export class ListComponent extends FrameComponent implements OnInit {

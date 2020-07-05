@@ -4,7 +4,10 @@
     [mainTitle]="'详细信息'"
     [enableMaximize]="true"
 >
-    <div class="f-form-layout farris-form farris-form-controls-inline">
+    <div
+        class="f-form-layout farris-form farris-form-controls-inline"
+        [formGroup]="viewModel.form"
+    >
         <fieldset class="f-section-formgroup">
             <div class="f-section-formgroup-inputs">
                 <div class="col-12">
@@ -18,7 +21,8 @@
                                     type="text"
                                     class="form-control"
                                     name="ID"
-                                    [(ngModel)]="data.id"
+                                    formControlName="id"
+                                    [readonly]="true"
                                 />
                                 <div
                                     class="farris-feedback valid-feedback"
@@ -38,7 +42,10 @@
                                     type="text"
                                     class="form-control"
                                     name="Code"
-                                    [(ngModel)]="data.code"
+                                    formControlName="code"
+                                    [readonly]="
+                                        !viewModel.stateMachine['editable']
+                                    "
                                 />
                                 <div
                                     class="farris-feedback valid-feedback"
@@ -58,7 +65,10 @@
                                     type="text"
                                     class="form-control"
                                     name="Name"
-                                    [(ngModel)]="data.name"
+                                    formControlName="name"
+                                    [readonly]="
+                                        !viewModel.stateMachine['editable']
+                                    "
                                 />
                                 <div
                                     class="farris-feedback valid-feedback"
