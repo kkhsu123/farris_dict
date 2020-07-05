@@ -6,13 +6,16 @@
         [idField]="'id'"
         [showLineNumber]="true"
         [fitColumns]="false"
-
+        
         [striped]="false"
         [showCheckbox]="false"
         [pagination]="false"
         [fit]="true"
         farris-use-binding-data
         (pageChanged)="viewModel.load()"
+        
     >
     </farris-datagrid>
 </farris-section>
+<!-- [total] = "total" -->
+<!-- [disabled]="viewModel.stateMachine[editable]" -->

@@ -51,6 +51,6 @@ export class ListComponent extends FrameComponent implements OnInit {
         super(injector);
     }
     ngOnInit() {}
-
+    // total:FormatTotalPipe
     viewModel:ListViewModel
 }

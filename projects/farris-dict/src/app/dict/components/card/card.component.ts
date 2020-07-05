@@ -24,6 +24,7 @@ import { CardForm } from '../../viewmodels/form/card.form';
     ],
 })
 export class CardComponent extends FrameComponent implements OnInit {
+    viewModel:CardViewModel
     @HostBinding('class.f-struct-wrapper')
     cls = true;
     data = {
