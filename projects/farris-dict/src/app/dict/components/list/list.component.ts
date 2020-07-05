@@ -7,10 +7,13 @@ import {
     ViewModel,
     BindingData,
     UIState,
+    COMMAND_HANDLERS_TOKEN 
 } from '@farris/devkit';
 import { ListViewModel } from '../../viewmodels/list.viewmodel';
 import { ListBindingData } from '../../viewmodels/bindingdata/list.bindingdata';
 import { ListUIState } from '../../viewmodels/uistate/list.uistate';
+
+import { LoadHandler } from '../../viewmodels/handlers/load.handler';
 
 @Component({
     selector: 'app-list',
@@ -21,7 +24,8 @@ import { ListUIState } from '../../viewmodels/uistate/list.uistate';
         { provide: FRAME_ID, useValue: 'list' },
         { provide: ViewModel, useClass: ListViewModel },
         { provide: BindingData, useClass: ListBindingData },
-        { provide: UIState, useClass: ListUIState}
+        { provide: UIState, useClass: ListUIState },
+        { provide: COMMAND_HANDLERS_TOKEN, useClass: LoadHandler, multi: true }
     ],
 })
 export class ListComponent extends FrameComponent implements OnInit {
@@ -43,10 +47,10 @@ export class ListComponent extends FrameComponent implements OnInit {
         { id: '007', name: 'G', code: '7' },
         { id: '008', name: 'H', code: '8' },
     ];
-    constructor(
-        injector: Injector
-    ) {
+    constructor(injector: Injector) {
         super(injector);
     }
     ngOnInit() {}
+
+    viewModel:ListViewModel
 }

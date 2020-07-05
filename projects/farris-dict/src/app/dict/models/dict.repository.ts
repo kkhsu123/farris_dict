@@ -26,4 +26,36 @@ export class DictRepository extends DefaultRepository<DictEntity> {
             })
         );
     }
+    paginationInfo = {
+        pageSize: 10,
+    };
+
+    /**
+     * 获取实体列表
+     */
+    getEntities(
+        filter: any[],
+        sorts: any[],
+        pageSize: number,
+        pageIndex: number
+    ): Observable<DictEntity[]> {
+        if (pageIndex == undefined) pageIndex = 1;
+        if (pageSize == undefined) pageSize = this.paginationInfo.pageSize;
+        return this.dataService.query(filter, sorts, pageSize, pageIndex).pipe(
+            map((response: ResponseInfo) => {
+                if (response.code == '0') {
+                    const returnData = response.returnValue || [];
+                    const pagination = response.pagination;
+                    const entities = this.buildEntities(returnData);
+                    this.entityCollection.pageIndex = pagination.pageIndex;
+                    this.entityCollection.pageSize = pagination.pageSize;
+                    this.entityCollection.totalCount = pagination.total;
+                    this.entityCollection.loadEntities(entities);
+                    return entities;
+                } else {
+                    return [];
+                }
+            })
+        );
+    }
 }
